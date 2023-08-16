@@ -43,9 +43,15 @@ module.exports.url2Gif = function (url, config) {
         if (gifFile) {
             if (config.exportPath) {
                 let movingFile = file.move(gifFile, config.exportPath);
-                return resolve(movingFile);
+                return resolve({
+                    file: movingFile,
+                    fileName: file.getFileName(movingFile)
+                });
             } else {
-                resolve(gifFile);
+                resolve({
+                    file: gifFile,
+                    fileName: file.getFileName(gifFile)
+                });
             }
         } else {
             resolve(undefined);
@@ -101,7 +107,10 @@ module.exports.buffer2gif = function (buffer, config) {
                     fileName: file.getFileName(movingFile)
                 });
             } else {
-                resolve(gifFile);
+                resolve({
+                    file: gifFile,
+                    fileName: file.getFileName(gifFile)
+                });
             }
         } else {
             resolve(undefined);
