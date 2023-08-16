@@ -53,6 +53,16 @@ module.exports.tgs2json = function (tgsFile) {
     return jsonFile;
 }
 
+module.exports.writeFile = function (buffer) {
+    const fileName = path.join(cacheFolder, `${new Date().getTime()}.tgs`);
+    fs.writeFileSync(fileName, buffer);
+    return fileName;
+}
+
+module.exports.file2Buffer = function (file) {
+    return fs.readFileSync(file);
+}
+
 module.exports.json2gif = function (jsonFile, config) {
     return new Promise(async (resolve) => {
         let converted = await converter({
@@ -66,6 +76,10 @@ module.exports.json2gif = function (jsonFile, config) {
         fs.writeFileSync(gifFile, converted, 'base64');
         resolve(gifFile);
     })
+}
+
+module.exports.getFileName = function (file) {
+    return path.basename(file);
 }
 
 module.exports.move = function (file, folder) {

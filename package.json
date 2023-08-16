@@ -1,19 +1,28 @@
 {
-  "name": "tgs_converter",
-  "version": "1.0.0",
-  "description": "",
+  "name": "tgs2",
+  "version": "1.0.4",
+  "description": "тест",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Maxim Churyanov",
+  "license": "Apache-2.0",
   "dependencies": {
-    "@lottiefiles/relottie-parse": "^1.0.3",
-    "gifski": "^1.7.1",
     "lottie-converter": "^1.0.0",
-    "lottie-puppeteer-fikuri": "^3.1.7",
-    "puppeteer-lottie": "^1.1.2",
     "tgs2lottie": "^1.0.13"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LaboratorySales/tgs2.git"
+  },
+  "keywords": [
+    "tgs",
+    "lottie",
+    "converter"
+  ],
+  "bugs": {
+    "url": "https://github.com/LaboratorySales/tgs2/issues"
+  },
+  "homepage": "https://github.com/LaboratorySales/tgs2#readme"
 }
