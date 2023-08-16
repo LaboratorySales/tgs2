@@ -31,14 +31,14 @@ module.exports.url2Gif = function (url, config) {
 
         if (fileTGS) {
             jsonFile = file.tgs2json(fileTGS);
-            // file.removeFile(fileTGS);
+            file.removeFile(fileTGS);
         } else {
             return resolve(undefined);
         }
 
         if (jsonFile) {
             gifFile = await file.json2gif(jsonFile, default_lottie_config);
-            // file.removeFile(jsonFile);
+            file.removeFile(jsonFile);
         }
         if (gifFile) {
             if (config.exportPath) {
