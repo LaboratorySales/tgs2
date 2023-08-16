@@ -69,7 +69,7 @@ web_modules/
 # Output of 'npm pack'
 *.tgz
 
-# Yarn Integrity file
+# Yarn Integrity file.js
 .yarn-integrity
 
 # dotenv environment variable files
@@ -116,7 +116,7 @@ dist
 # DynamoDB Local files
 .dynamodb/
 
-# TernJS port file
+# TernJS port file.js
 .tern-port
 
 # Stores VSCode versions used for testing VSCode extensions

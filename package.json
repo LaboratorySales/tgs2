@@ -1,0 +1,19 @@
+{
+  "name": "tgs_converter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@lottiefiles/relottie-parse": "^1.0.3",
+    "gifski": "^1.7.1",
+    "lottie-converter": "^1.0.0",
+    "lottie-puppeteer-fikuri": "^3.1.7",
+    "puppeteer-lottie": "^1.1.2",
+    "tgs2lottie": "^1.0.13"
+  }
+}
