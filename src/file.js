@@ -4,7 +4,7 @@ const path = require("path");
 const converter = require('lottie-converter');
 const tgslottie = require('tgs2lottie');
 
-const cacheFolder = path.join(path.dirname(require.main.filename), 'cache', 'tgs_converter');
+const cacheFolder = path.join(path.dirname(require.main.filename), 'cache', 'tgs2');
 
 module.exports.downloadFile = function (url) {
     return new Promise((resolve) => {
@@ -25,7 +25,6 @@ module.exports.downloadFile = function (url) {
                 )
             }
 
-            // save the file.js to disk
             checkCacheFolder();
             let fileName = url.split('/')[url.split('/').length - 1];
             const targetFile = path.join(cacheFolder, fileName);
@@ -46,6 +45,7 @@ module.exports.removeFile = function (filePath) {
 }
 
 module.exports.tgs2json = function (tgsFile) {
+    checkCacheFolder();
     const read = fs.readFileSync(tgsFile);
     let fileName = path.basename(tgsFile).split('.')[0];
     let jsonFile = path.join(path.dirname(tgsFile), fileName) + '.json';
@@ -53,17 +53,24 @@ module.exports.tgs2json = function (tgsFile) {
     return jsonFile;
 }
 
-module.exports.writeFile = function (buffer) {
-    const fileName = path.join(cacheFolder, `${new Date().getTime()}.tgs`);
-    fs.writeFileSync(fileName, buffer);
-    return fileName;
+module.exports.writeFile = function (buffer, fileName = undefined) {
+    checkCacheFolder();
+    let filePath = undefined;
+    if (fileName)
+        filePath = path.join(cacheFolder, `${fileName}.tgs`);
+    else
+        filePath = path.join(cacheFolder, `${new Date().getTime()}.tgs`);
+    fs.writeFileSync(filePath, buffer);
+    return filePath;
 }
 
 module.exports.file2Buffer = function (file) {
+    console.log(`file2Buffer("${file}")`);
     return fs.readFileSync(file);
 }
 
 module.exports.json2gif = function (jsonFile, config) {
+    checkCacheFolder();
     return new Promise(async (resolve) => {
         let converted = await converter({
             file: fs.readFileSync(jsonFile),
@@ -83,6 +90,7 @@ module.exports.getFileName = function (file) {
 }
 
 module.exports.move = function (file, folder) {
+    checkCacheFolder();
     let fileName = path.basename(file);
     let newFile = path.join(folder, fileName);
 

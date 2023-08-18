@@ -1,7 +1,7 @@
 {
   "name": "tgs2",
-  "version": "1.0.7",
-  "description": "тест",
+  "version": "1.0.9",
+  "description": "Converter from file/buffer stickers Telegram to gif/mp4/webp",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

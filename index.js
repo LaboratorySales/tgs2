@@ -65,6 +65,7 @@ module.exports.buffer2gif = function (buffer, config) {
             return resolve(undefined);
         }
 
+        let fileName = undefined;
         let fileTGS;
         let jsonFile;
         let gifFile;
@@ -84,9 +85,71 @@ module.exports.buffer2gif = function (buffer, config) {
                 if (config.lottie_config.height)
                     default_lottie_config.height = config.lottie_config.height;
             }
+            if (config.fileName) {
+                fileName = config.fileName;
+                if (fileName.indexOf('.') > -1) {
+                    fileName = fileName.split('.')[0];
+                }
+            }
         }
 
-        fileTGS = file.writeFile(buffer);
+        fileTGS = file.writeFile(buffer, fileName);
+
+        if (fileTGS) {
+            jsonFile = file.tgs2json(fileTGS);
+            file.removeFile(fileTGS);
+        } else {
+            return resolve(undefined);
+        }
+
+        if (jsonFile) {
+            gifFile = await file.json2gif(jsonFile, default_lottie_config);
+            file.removeFile(jsonFile);
+        }
+        if (gifFile) {
+            if (config.exportPath) {
+                let movingFile = file.move(gifFile, config.exportPath);
+                return resolve({
+                    file: movingFile,
+                    fileName: file.getFileName(movingFile)
+                });
+            } else {
+                resolve({
+                    file: gifFile,
+                    fileName: file.getFileName(gifFile)
+                });
+            }
+        } else {
+            resolve(undefined);
+        }
+    })
+}
+
+module.exports.file2gif = function (fileTGS, config) {
+    return new Promise(async (resolve) => {
+        if (!fileTGS) {
+            return resolve(undefined);
+        }
+
+        let jsonFile;
+        let gifFile;
+
+        let default_lottie_config = {
+            format: 'gif',// format to convert to, either 'gif' , 'mp4' , 'webp' , 'webm' or 'lottie'
+            width: 100,//optional, defaults to 1000
+            height: 100 //optinal, defaults to 1000
+        }
+
+        if (config) {
+            if (config.lottie_config) {
+                if (config.lottie_config.format)
+                    default_lottie_config.format = config.lottie_config.format;
+                if (config.lottie_config.width)
+                    default_lottie_config.width = config.lottie_config.width;
+                if (config.lottie_config.height)
+                    default_lottie_config.height = config.lottie_config.height;
+            }
+        }
 
         if (fileTGS) {
             jsonFile = file.tgs2json(fileTGS);
